@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlazorDemo.Pages
+﻿namespace BlazorClient.Models
 {
     public class ChatMessage
     {

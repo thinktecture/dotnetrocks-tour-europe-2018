@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BlazorDemo.Pages;
+using BlazorClient.Models;
 using Microsoft.AspNetCore.Blazor;
 
-namespace BlazorDemo.Services
+namespace BlazorClient.Services
 {
     public class MessageService
     {

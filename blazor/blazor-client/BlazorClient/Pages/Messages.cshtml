@@ -1,7 +1,7 @@
 ﻿@using System
 @using System.Linq
 
-@inherits BlazorDemo.Pages.MessagesComponent
+@inherits BlazorClient.Pages.MessagesComponent
 
 <h2>Messages</h2>
 
@@ -21,7 +21,7 @@ else
         <tbody>
             @foreach (var msg in Messages)
             {
-                
+
                 <tr>
                     <td>@msg.user.name</td>
                     <td>@msg.message</td>
