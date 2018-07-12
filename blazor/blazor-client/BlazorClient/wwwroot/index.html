@@ -3,14 +3,50 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width">
+
     <title>eXtreme Chat</title>
     <base href="/" />
+
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
+
+    <script src="scripts/signalr.min.js"></script>
 </head>
 <body>
     <app>Loading...</app>
 
-    <script type="blazor-boot"></script>
+    <script type="blazor-boot">
+    </script>
+
+    <script>
+        function updateMessages(data) {
+            Blazor.invokeDotNetMethod({
+                type: {
+                    assembly: 'BlazorClient',
+                    name: 'BlazorClient.Services.MessageService'
+                },
+                method: {
+                    name: 'NotifyNewMessagesAvailable'
+                }
+            });
+        }
+
+        function startConnection(url, accessToken) {
+            var connection = new signalR.HubConnectionBuilder()
+                .withUrl(url, { accessTokenFactory: () => accessToken })
+                .build();
+            connection.on('NewMessages', updateMessages);
+            connection.onclose(() => console.log('SignalR disconnected'));
+            connection.start().catch(() => console.log('SignalR disconnected'));
+        }
+
+        fetch('https://xtreme-serverless-functions.azurewebsites.net/api/config')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (result) {
+                startConnection(result.hubUrl, result.accessToken);
+            });
+    </script>
 </body>
 </html>
