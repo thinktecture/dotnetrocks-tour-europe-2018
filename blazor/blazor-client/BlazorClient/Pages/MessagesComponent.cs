@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Blazor.Components;
 
 namespace BlazorClient.Pages
 {
-    public class MessagesComponent : BlazorComponent
+    public class MessagesComponent : BlazorComponent, IDisposable
     {
         [Inject]
         private MessageService _messageService { get; set; }
 
         protected IEnumerable<ChatMessage> Messages { get; private set; }
-        
+
         public MessagesComponent()
         {
             MessageService.NewMessagesAvailable += MessageService_NewMessagesAvailable;
@@ -33,6 +33,26 @@ namespace BlazorClient.Pages
         private async Task GetMessagesAsync()
         {
             Messages = await _messageService.GetMessagesAsync();
+        }
+
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    MessageService.NewMessagesAvailable -= MessageService_NewMessagesAvailable;
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
     }
 }
