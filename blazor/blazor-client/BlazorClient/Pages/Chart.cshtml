@@ -1,0 +1,53 @@
+﻿@page "/Chart"
+
+@using BlazorComponents.ChartJS
+@using BlazorComponents.Shared
+
+<div class="container">
+    <h2>Statistics</h2>
+    <ChartJsBarChart ref="barChartJs" Chart="@blazorBarChartJS" Width="600" Height="300" />
+</div>
+
+@functions {
+
+public ChartJSChart<ChartJsBarDataset> blazorBarChartJS { get; set; } = 
+        new ChartJSChart<ChartJsBarDataset>();
+ChartJsBarChart barChartJs;
+
+protected override void OnInit()
+{
+    blazorBarChartJS = new ChartJSChart<ChartJsBarDataset>()
+    {
+        ChartType = "bar",
+        CanvasId = "myFirstBarChart",
+        Options = new ChartJsOptions()
+        {
+            Text = "Sample chart from Blazor",
+            BorderWidth = 1,
+            Display = true
+        },
+        Data = new ChartJsData<ChartJsBarDataset>()
+        {
+            Labels = new List<string>() { "Red", "Blue", "Yellow", "Green", "Purple", "Orange" },
+            Datasets = new List<ChartJsBarDataset>()
+            {
+                new ChartJsBarDataset()
+                {
+                    Label = "# of Votes from blazor",
+                    BackgroundColor = "#cc65fe",
+                    BorderColor = "#cc65fe",
+                    Data = new List<int>(){ 19,12,5,3,3,2}
+                },
+                new ChartJsBarDataset()
+                {
+                    Label = "# of Likes from blazor",
+                    BackgroundColor = "#36a2eb",
+                    BorderColor = "#36a2eb",
+                    Data = new List<int>(){ 30,10,15,13,13,12}
+                }
+            }
+        }
+    };
+}
+
+}
