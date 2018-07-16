@@ -10,6 +10,7 @@ namespace Serverless
 {
     public static class MessagesApi
     {
+        // Yes, there is no exception handling - for the sake of conference presentation ;-)
         [FunctionName("addmessage")]
         public static IActionResult Add(
             [HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route="messages/add")]
@@ -31,7 +32,7 @@ namespace Serverless
         [FunctionName("messageslist")]
         public static IActionResult List(
             [HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route="messages/list")]
-            HttpRequest reuqest,
+            HttpRequest request,
             [CosmosDB("chatsystem", "messages", ConnectionStringSetting = "CosmosDB")]
             IEnumerable<ChatMessage> chatMessages,
             TraceWriter log)
