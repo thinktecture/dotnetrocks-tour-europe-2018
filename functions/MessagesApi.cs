@@ -13,7 +13,7 @@ namespace Serverless
         // Yes, there is no exception handling - for the sake of conference presentation ;-)
         [FunctionName("addmessage")]
         public static IActionResult Add(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route="messages/add")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route="messages")]
             ChatMessage chatMessage,
             [CosmosDB("chatsystem", "messages", Id = "id", ConnectionStringSetting = "CosmosDB")]
             out dynamic document,
@@ -31,7 +31,7 @@ namespace Serverless
 
         [FunctionName("messageslist")]
         public static IActionResult List(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route="messages/list")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route="messages")]
             HttpRequest request,
             [CosmosDB("chatsystem", "messages", ConnectionStringSetting = "CosmosDB")]
             IEnumerable<ChatMessage> chatMessages,
