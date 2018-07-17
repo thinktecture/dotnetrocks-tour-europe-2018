@@ -25,7 +25,7 @@ namespace BlazorClient.Services
         public async Task<ChatMessage[]> GetMessagesAsync()
         {
             return await _httpClient.GetJsonAsync<ChatMessage[]>(
-                "https://xtreme-serverless-functions-live.azurewebsites.net/api/messages/list");
+                "https://xtreme-serverless-functions-live.azurewebsites.net/api/messages");
         }
     }
 }
