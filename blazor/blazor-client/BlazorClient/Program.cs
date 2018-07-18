@@ -1,7 +1,5 @@
-﻿using BlazorClient.Services;
-using Microsoft.AspNetCore.Blazor.Browser.Rendering;
+﻿using Microsoft.AspNetCore.Blazor.Browser.Rendering;
 using Microsoft.AspNetCore.Blazor.Browser.Services;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace BlazorClient
@@ -14,7 +12,6 @@ namespace BlazorClient
         {
             ServiceProvider = new BrowserServiceProvider(services =>
             {
-                services.AddScoped<MessageService>();
             });
 
             new BrowserRenderer(ServiceProvider).AddComponent<App>("app");
