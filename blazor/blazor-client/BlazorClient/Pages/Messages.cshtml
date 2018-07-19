@@ -1,0 +1,33 @@
+﻿@using System
+@using System.Linq
+
+@inherits BlazorClient.Pages.MessagesComponent
+
+<div class="container">
+    <h2>Messages</h2>
+
+    @if (Messages == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var msg in Messages)
+                {
+                    <tr>
+                        <td>@msg.user.name</td>
+                        <td>@msg.message</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
