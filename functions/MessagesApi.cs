@@ -11,6 +11,7 @@ namespace Serverless
     public static class MessagesApi
     {
         // Yes, there is no exception handling - for the sake of conference presentation ;-)
+
         [FunctionName("addmessage")]
         public static IActionResult Add(
             [HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route="messages")]
