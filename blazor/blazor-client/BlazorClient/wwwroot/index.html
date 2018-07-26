@@ -16,20 +16,12 @@
     <app>Loading...</app>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <script type="blazor-boot">
-    </script>
+    <script src="_framework/blazor.webassembly.js"></script>
 
     <script>
         function updateMessages(data) {
-            Blazor.invokeDotNetMethod({
-                type: {
-                    assembly: 'BlazorClient',
-                    name: 'BlazorClient.Services.MessageService'
-                },
-                method: {
-                    name: 'NotifyNewMessagesAvailable'
-                }
-            });
+            DotNet.invokeMethod('BlazorClient',
+                'NotifyNewMessagesAvailable');
         }
 
         function startConnection(url, accessToken) {

@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using BlazorClient.Models;
 using Microsoft.AspNetCore.Blazor;
+using Microsoft.JSInterop;
 
 namespace BlazorClient.Services
 {
@@ -14,9 +15,10 @@ namespace BlazorClient.Services
 
         public MessageService(HttpClient httpClient)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _httpClient = httpClient;
         }
-        
+
+        [JSInvokable]
         public static void NotifyNewMessagesAvailable()
         {
             NewMessagesAvailable?.Invoke(typeof(MessageService), EventArgs.Empty);
