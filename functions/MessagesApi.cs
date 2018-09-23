@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Host;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Serverless
 {
@@ -38,7 +39,19 @@ namespace Serverless
             IEnumerable<ChatMessage> chatMessages,
             TraceWriter log)
         {
-            return new OkObjectResult(chatMessages);
+            return new OkObjectResult(chatMessages.Select(cm => new { cm.Id, cm.Message }));
+        }
+
+        [FunctionName("message")]
+        public static IActionResult Details(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route="messages/{id}")]
+            HttpRequest request,
+            [CosmosDB("chatsystem", "messages", ConnectionStringSetting = "CosmosDB", Id="{id}")]
+            ChatMessage chatMessage,
+            TraceWriter log)
+        {
+            // TODO: handle "not found"
+            return new OkObjectResult(chatMessage);
         }
     }
 }
